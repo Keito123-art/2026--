@@ -14,6 +14,6 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
-    base: '/20260429/',
   },
+  base: '/2026期中/',
 })
