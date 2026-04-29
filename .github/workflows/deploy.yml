@@ -23,10 +23,10 @@ jobs:
           node-version: 20
 
       - name: 安裝套件
-        run: npm install
+        run: cd vue-project &&npm install
 
       - name: 打包專案
-        run: npm run build
+        run: cd vue-project &&npm run build
 
       - uses: actions/configure-pages@v4
 
