@@ -1,4 +1,4 @@
-name: 部署到 GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -15,30 +15,35 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-     steps:
-      # 1. 下载你的代码
+
+    steps:
+      # 1. 下载代码
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 安装 Node.js (版本 18)
+      # 2. 安装 Node.js (强制使用 v18)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # 3. 安装依赖 (注意：这里指定了目录)
+      # 3. 安装依赖 (指定目录)
       - name: Install dependencies
         working-directory: ./vue-project
         run: npm install
 
-      # 4. 打包项目 (注意：这里也指定了目录)
+      # 4. 打包 (指定目录)
       - name: Build
         working-directory: ./vue-project
         run: npm run build
 
-      # 5. 上传文件 (注意：这里指明了 dist 的位置)
+      # 5. 上传文件 (指定 dist 的路径)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./vue-project/dist
-    
+
+      # 6. 部署
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
